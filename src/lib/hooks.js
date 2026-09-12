@@ -93,11 +93,11 @@ export function useStreak() {
 
   const getBadges = useCallback(() => {
     const all = [
-      { id: 'first',   icon: '🌱', label: 'First Day',       threshold: 1   },
-      { id: 'three',   icon: '🔥', label: '3-Day Fire',      threshold: 3   },
-      { id: 'week',    icon: '⚡', label: 'Week Warrior',    threshold: 7   },
-      { id: 'month',   icon: '💎', label: '30-Day Diamond',  threshold: 30  },
-      { id: 'century', icon: '👑', label: 'Century Club',    threshold: 100 },
+      { id: 'first',   icon: '🌱', label: 'First Day',       threshold: 1,   color: 'var(--green)'  },
+      { id: 'three',   icon: '🔥', label: '3-Day Fire',      threshold: 3,   color: 'var(--orange)' },
+      { id: 'week',    icon: '⚡', label: 'Week Warrior',    threshold: 7,   color: 'var(--teal2)'  },
+      { id: 'month',   icon: '💎', label: '30-Day Diamond',  threshold: 30,  color: 'var(--sky)'    },
+      { id: 'century', icon: '👑', label: 'Century Club',    threshold: 100, color: 'var(--pink)'   },
     ]
     return all.map(b => ({ ...b, earned: streak >= b.threshold }))
   }, [streak])

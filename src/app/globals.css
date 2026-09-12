@@ -18,6 +18,9 @@
   --orange:  #D97B3F;
   --red:     #DC2626;
   --green:   #16A34A;
+  --violet:  #8B5FBF;
+  --sky:     #3E8FD0;
+  --pink:    #D0518F;
 
   /* Text/accents used on permanently-dark surfaces (hero, nav, footer, card headers) */
   --muted-on-dark:   #9FB3A6;
@@ -64,42 +67,15 @@
   --faint-on-dark:   #64775E;
   --navy-hover:      #12281F;
   --gold-deep:       #A66B2A;
+  --violet:  #B48EE0;
+  --sky:     #6FB3E8;
+  --pink:    #E888B3;
 
   --shadow-sm: 0 1px 4px rgba(0,0,0,0.35);
   --shadow:    0 4px 24px rgba(0,0,0,0.40);
   --shadow-lg: 0 14px 50px rgba(0,0,0,0.55);
 
   color-scheme: dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]):not([data-theme="dark"]) {
-    --navy:    #08160F;
-    --navy2:   #0D211A;
-    --gold:    #F0C168;
-    --gold2:   #F6D488;
-    --teal:    #2FBFA9;
-    --teal2:   #3ED8C0;
-    --slate:   #C7D2C6;
-    --cream:   #10201A;
-    --smoke:   #17281F;
-    --mist:    #2A3F32;
-    --ink:     #ECE7D8;
-    --silver:  #93A594;
-    --white:   #16261E;
-
-    --muted-on-dark:   #A9C0B2;
-    --muted-on-dark-2: #8AA394;
-    --faint-on-dark:   #64775E;
-    --navy-hover:      #12281F;
-    --gold-deep:       #A66B2A;
-
-    --shadow-sm: 0 1px 4px rgba(0,0,0,0.35);
-    --shadow:    0 4px 24px rgba(0,0,0,0.40);
-    --shadow-lg: 0 14px 50px rgba(0,0,0,0.55);
-
-    color-scheme: dark;
-  }
 }
 
 html { scroll-behavior: smooth; font-size: 16px; -webkit-font-smoothing: antialiased; }
@@ -138,8 +114,8 @@ input, textarea {
   cursor: pointer; transition: all 0.18s ease; text-decoration: none;
   white-space: nowrap;
 }
-.btn-primary   { background: var(--gold);  color: var(--navy); }
-.btn-primary:hover { background: var(--gold2); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(224,168,62,0.35); }
+.btn-primary   { background: linear-gradient(135deg, var(--gold), var(--orange)); color: var(--navy); }
+.btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(224,168,62,0.35); }
 .btn-teal      { background: var(--teal);  color: var(--white); }
 .btn-teal:hover { background: var(--teal2); transform: translateY(-1px); }
 .btn-dark      { background: var(--navy);  color: var(--gold); }
@@ -193,6 +169,7 @@ input, textarea {
   .reveal { opacity: 1; transform: none; }
   .reveal.in-view { animation: none; }
   .fade-up { animation: none; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
 }
 
 @keyframes pulse-gold {

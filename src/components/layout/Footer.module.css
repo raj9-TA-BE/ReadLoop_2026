@@ -1,6 +1,7 @@
 .footer {
   background: var(--navy);
-  border-top: 2px solid rgba(224,168,62,0.2);
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(90deg, var(--gold), var(--orange), var(--teal)) 1;
   padding: 3.5rem 1.5rem 1.5rem;
 }
 .inner {
@@ -21,9 +22,12 @@
   width: 34px; height: 34px; border-radius: 8px;
   background: rgba(255,255,255,0.07); color: var(--mist);
   font-size: 0.85rem; text-decoration: none;
-  transition: background 0.18s, color 0.18s;
+  transition: background 0.18s, color 0.18s, transform 0.18s;
 }
-.social a:hover { background: var(--gold); color: var(--navy); }
+.social a:hover { background: var(--gold); color: var(--navy); transform: translateY(-2px); }
+.social a:nth-child(1):hover { background: var(--sky); }
+.social a:nth-child(2):hover { background: var(--teal2); }
+.social a:nth-child(3):hover { background: var(--pink); }
 .cols { display: flex; gap: 3rem; flex-wrap: wrap; }
 .cols > div { display: flex; flex-direction: column; gap: 0.5rem; }
 .cols h4 {

@@ -210,14 +210,14 @@ export default function Home() {
             <p className={styles.howSub}>Every feature is engineered to pull you back tomorrow — not just impress you today.</p>
             <div className={styles.howGrid}>
               {[
-                { icon:'⏰', t:'Daily trigger', d:'Set your reading moment. We deliver at exactly that time, every day.' },
-                { icon:'🧠', t:'AI personalisation', d:'Every like, save, and skip teaches ReadLoop what you need next.' },
-                { icon:'🔥', t:'Streak & XP system', d:'Earn XP, level up, unlock badges. Never break the chain.' },
-                { icon:'📓', t:'Transformation journal', d:'Log one real action per book. 365 entries = your proof of change.' },
-                { icon:'👥', t:'Reading pods', d:'5 readers. Shared goals. Accountability that actually works.' },
-                { icon:'🕉️', t:'Community tracks', d:'Hindu Dharma (Sundays) and Jain Wisdom (Thursdays) woven into your daily habit.' },
+                { icon:'⏰', t:'Daily trigger', d:'Set your reading moment. We deliver at exactly that time, every day.', color:'var(--gold)' },
+                { icon:'🧠', t:'AI personalisation', d:'Every like, save, and skip teaches ReadLoop what you need next.', color:'var(--violet)' },
+                { icon:'🔥', t:'Streak & XP system', d:'Earn XP, level up, unlock badges. Never break the chain.', color:'var(--orange)' },
+                { icon:'📓', t:'Transformation journal', d:'Log one real action per book. 365 entries = your proof of change.', color:'var(--sky)' },
+                { icon:'👥', t:'Reading pods', d:'5 readers. Shared goals. Accountability that actually works.', color:'var(--pink)' },
+                { icon:'🕉️', t:'Community tracks', d:'Hindu Dharma (Sundays) and Jain Wisdom (Thursdays) woven into your daily habit.', color:'var(--teal)' },
               ].map((f, i) => (
-                <div key={f.t} className={`${styles.featureCard} reveal`} style={{ animationDelay: `${i * 0.06}s` }}>
+                <div key={f.t} className={`${styles.featureCard} reveal`} style={{ animationDelay: `${i * 0.06}s`, '--feature-color': f.color }}>
                   <div className={styles.featureIcon}>{f.icon}</div>
                   <h3>{f.t}</h3>
                   <p>{f.d}</p>

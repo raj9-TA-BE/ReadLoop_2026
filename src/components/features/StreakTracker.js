@@ -66,6 +66,7 @@ export default function StreakTracker({ streak, xp, todayRead, onMarkRead, getBa
           <div
             key={b.id}
             className={`${styles.badge} ${b.earned ? styles.earned : styles.locked}`}
+            style={b.earned ? { '--badge-color': b.color } : undefined}
             title={b.earned ? `Earned: ${b.label}` : `Locked: ${b.label}`}
           >
             <span>{b.icon}</span>

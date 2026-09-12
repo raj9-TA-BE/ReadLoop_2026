@@ -23,7 +23,7 @@
 .day.today .dayIcon { color: var(--gold); }
 .badges { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
 .badge { display: flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; padding: 0.25rem 0.7rem; border-radius: 20px; border: 1px solid; }
-.badge.earned { background: rgba(224,168,62,0.15); color: var(--gold); border-color: rgba(224,168,62,0.35); }
+.badge.earned { background: color-mix(in srgb, var(--badge-color, var(--gold)) 18%, transparent); color: var(--badge-color, var(--gold)); border-color: color-mix(in srgb, var(--badge-color, var(--gold)) 45%, transparent); }
 .badge.locked { background: rgba(85,102,90,0.14); color: var(--faint-on-dark); border-color: rgba(85,102,90,0.22); }
 .markBtn { width: 100%; padding: 0.85rem; background: var(--gold); color: var(--navy); font-size: 0.95rem; font-weight: 700; border: none; border-radius: var(--radius); cursor: pointer; transition: background 0.18s, transform 0.18s; }
 .markBtn:hover:not(:disabled) { background: var(--gold2); transform: translateY(-1px); }
