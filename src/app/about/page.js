@@ -16,7 +16,7 @@ export default function AboutPage() {
           <h1 style={{ fontFamily:'var(--font-serif)', fontSize:'clamp(2rem,5vw,3rem)', color:'var(--white)', marginBottom:'1rem' }}>
             Why ReadLoop exists
           </h1>
-          <p style={{ color:'#7a9ab8', fontSize:'1.05rem', maxWidth:'560px', margin:'0 auto' }}>
+          <p style={{ color:'var(--muted-on-dark)', fontSize:'1.05rem', maxWidth:'560px', margin:'0 auto' }}>
             Because 72% of self-development books are never finished — and the world's best ideas deserve better than a dusty shelf.
           </p>
         </div>

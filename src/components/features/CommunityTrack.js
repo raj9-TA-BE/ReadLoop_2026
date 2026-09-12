@@ -17,7 +17,7 @@ export default function CommunityTrack({ onChange }) {
       label: 'General',
       subtitle: 'All traditions',
       desc: 'Self-development, psychology, productivity, and philosophy from around the world.',
-      color: '#C9A84C',
+      color: '#E0A83E',
       communityDay: null,
     },
     {

@@ -1,14 +1,15 @@
 .card { background: var(--white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--mist); }
 .header { background: var(--navy); padding: 1.5rem 2rem; display: flex; align-items: flex-start; gap: 1.2rem; position: relative; }
-.spine { width: 56px; height: 78px; border-radius: 6px; background: linear-gradient(135deg, var(--gold), #8a6020); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; box-shadow: 3px 3px 12px rgba(0,0,0,0.25); }
+.spine { width: 56px; height: 78px; border-radius: 6px; background: linear-gradient(135deg, var(--gold), var(--gold-deep)); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; box-shadow: 3px 3px 12px rgba(0,0,0,0.25); transition: transform 0.25s ease; }
+.card:hover .spine { transform: rotate(-4deg) translateY(-2px); }
 .meta { flex: 1; }
 .title { color: var(--white); font-size: 1.4rem; line-height: 1.2; margin-bottom: 0.3rem; }
-.author { color: #7a9ab8; font-size: 0.88rem; margin-bottom: 0.6rem; font-style: italic; }
+.author { color: var(--muted-on-dark); font-size: 0.88rem; margin-bottom: 0.6rem; font-style: italic; }
 .tags { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
-.readTime { font-size: 0.7rem; color: #6b82a0; }
+.readTime { font-size: 0.7rem; color: var(--muted-on-dark-2); }
 .dayBadge { text-align: center; flex-shrink: 0; }
 .dayNum { display: block; font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; color: var(--gold); line-height: 1; }
-.dayOf { font-size: 0.7rem; color: #6b82a0; }
+.dayOf { font-size: 0.7rem; color: var(--muted-on-dark-2); }
 .body { padding: 1.8rem 2rem; }
 .essenceLabel { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: var(--silver); margin-bottom: 0.7rem; }
 .essence { font-size: 1rem; line-height: 1.78; color: var(--ink); max-height: 96px; overflow: hidden; transition: max-height 0.3s ease; }
@@ -27,12 +28,14 @@
 .footer { padding: 1rem 2rem; background: var(--smoke); border-top: 1px solid var(--mist); display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; flex-wrap: wrap; }
 .footerActions { display: flex; gap: 0.5rem; }
 .actionBtn { background: var(--white); border: 1px solid var(--mist); color: var(--slate); font-size: 0.82rem; font-weight: 600; padding: 0.4rem 0.9rem; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.18s; }
-.actionBtn:hover { border-color: var(--teal); color: var(--teal); }
+.actionBtn:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-1px); }
+.actionBtn:active { transform: translateY(0) scale(0.96); }
 .actionBtn.saved { background: var(--smoke); color: var(--silver); border-color: var(--mist); cursor: default; }
 .buyBtn { background: var(--smoke); border: 1px solid var(--mist); color: var(--slate); font-size: 0.82rem; font-weight: 600; padding: 0.4rem 0.9rem; border-radius: var(--radius-sm); text-decoration: none; transition: all 0.18s; }
-.buyBtn:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
-.markReadBtn { background: var(--teal); color: var(--white); font-size: 0.88rem; font-weight: 700; padding: 0.55rem 1.3rem; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: background 0.18s; }
-.markReadBtn:hover { background: var(--teal2); }
+.buyBtn:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); transform: translateY(-1px); }
+.markReadBtn { background: var(--teal); color: var(--white); font-size: 0.88rem; font-weight: 700; padding: 0.55rem 1.3rem; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: background 0.18s, transform 0.18s; }
+.markReadBtn:hover { background: var(--teal2); transform: translateY(-1px); }
+.markReadBtn:active { transform: translateY(0) scale(0.97); }
 .markReadBtn.alreadyRead { background: var(--smoke); color: var(--silver); border: 1px solid var(--mist); cursor: default; }
 @media (max-width: 600px) {
   .header { flex-wrap: wrap; }

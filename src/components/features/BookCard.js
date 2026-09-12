@@ -28,7 +28,7 @@ export default function BookCard({ book, onMarkRead, todayRead }) {
   }
 
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card} fade-up`}>
       <header className={styles.header}>
         <div className={styles.spine}>{book.emoji}</div>
         <div className={styles.meta}>
@@ -96,7 +96,7 @@ export default function BookCard({ book, onMarkRead, todayRead }) {
           </a>
         </div>
         <button
-          className={`${styles.markReadBtn} ${todayRead ? styles.alreadyRead : ''}`}
+          className={`${styles.markReadBtn} ${todayRead ? styles.alreadyRead : 'pulse-gold'}`}
           onClick={() => !todayRead && onMarkRead(book.id)}
           disabled={todayRead}
         >

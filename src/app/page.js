@@ -7,6 +7,7 @@ import StreakTracker from '@/components/features/StreakTracker'
 import JournalSection from '@/components/features/JournalSection'
 import SignupSection from '@/components/features/SignupSection'
 import CommunityTrack from '@/components/features/CommunityTrack'
+import MilestoneModal from '@/components/features/MilestoneModal'
 import { ToastContainer } from '@/components/ui/Toast'
 import { useStreak, useCommunityTrack, useToast } from '@/lib/hooks'
 import styles from './page.module.css'
@@ -26,7 +27,7 @@ const FALLBACK_BOOK = {
 }
 
 export default function Home() {
-  const { streak, xp, todayRead, readDays, markRead, getBadges } = useStreak()
+  const { streak, xp, todayRead, readDays, markRead, getBadges, milestone, clearMilestone } = useStreak()
   const { track, setTrack, trackMeta, allMeta } = useCommunityTrack()
   const { toasts, show: showToast } = useToast()
 
@@ -69,6 +70,22 @@ export default function Home() {
     if (gb.length > 0) setDisplayBook(gb[browseIdx % gb.length])
   }, [browseIdx, mounted, isCommunityDay])
 
+  // Scroll-reveal: fade+lift elements marked `.reveal` into view once, as the user scrolls to them
+  useEffect(() => {
+    const targets = document.querySelectorAll('.reveal')
+    if (!targets.length) return
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view')
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.15 })
+    targets.forEach(el => observer.observe(el))
+    return () => observer.disconnect()
+  }, [mounted])
+
   const handleMarkRead = useCallback(() => {
     markRead(displayBook.id)
     showToast(`🔥 Streak extended to ${streak + 1} days! +60 XP`)
@@ -91,7 +108,7 @@ export default function Home() {
       <main>
         {/* HERO */}
         <section className={styles.hero}>
-          <div className={styles.heroInner}>
+          <div className={`${styles.heroInner} fade-up`}>
             <span className={styles.eyebrow}>One book · One day · One habit</span>
             <h1 className={styles.heroTitle}>
               The reading habit<br/>that actually <em>sticks</em>
@@ -142,7 +159,7 @@ export default function Home() {
                 </div>
               )}
             </div>
-            <BookCard book={displayBook} onMarkRead={handleMarkRead} todayRead={todayRead} />
+            <BookCard key={displayBook.id} book={displayBook} onMarkRead={handleMarkRead} todayRead={todayRead} />
           </div>
         </section>
 
@@ -199,8 +216,8 @@ export default function Home() {
                 { icon:'📓', t:'Transformation journal', d:'Log one real action per book. 365 entries = your proof of change.' },
                 { icon:'👥', t:'Reading pods', d:'5 readers. Shared goals. Accountability that actually works.' },
                 { icon:'🕉️', t:'Community tracks', d:'Hindu Dharma (Sundays) and Jain Wisdom (Thursdays) woven into your daily habit.' },
-              ].map(f => (
-                <div key={f.t} className={styles.featureCard}>
+              ].map((f, i) => (
+                <div key={f.t} className={`${styles.featureCard} reveal`} style={{ animationDelay: `${i * 0.06}s` }}>
                   <div className={styles.featureIcon}>{f.icon}</div>
                   <h3>{f.t}</h3>
                   <p>{f.d}</p>
@@ -214,7 +231,7 @@ export default function Home() {
         <section className={styles.communitySection}>
           <div className="container">
             <div className={styles.commGrid}>
-              <div className={styles.commCard} style={{ borderColor:'#FF6B35', background:'rgba(255,107,53,0.04)' }}>
+              <div className={`${styles.commCard} reveal`} style={{ borderColor:'#FF6B35', background:'rgba(255,107,53,0.04)' }}>
                 <div className={styles.commHeader}>
                   <span style={{ fontSize:'2rem' }}>🕉️</span>
                   <div>
@@ -227,7 +244,7 @@ export default function Home() {
                   {hinduBooks.length > 4 && <li style={{color:'var(--silver)'}}>+{hinduBooks.length - 4} more texts…</li>}
                 </ul>
               </div>
-              <div className={styles.commCard} style={{ borderColor:'#7CB9E8', background:'rgba(124,185,232,0.04)' }}>
+              <div className={`${styles.commCard} reveal`} style={{ borderColor:'#7CB9E8', background:'rgba(124,185,232,0.04)', animationDelay: '0.08s' }}>
                 <div className={styles.commHeader}>
                   <span style={{ fontSize:'2rem' }}>☸️</span>
                   <div>
@@ -253,8 +270,8 @@ export default function Home() {
                 { q:"ReadLoop is the first reading app that actually changed my behaviour. 127-day streak.", n:"Sarah K.", r:"Product Manager · London" },
                 { q:"The Hindu Dharma track on Sundays transformed my week. The Bhagavad Gita essence was extraordinary.", n:"Priya M.", r:"Software Engineer · Birmingham" },
                 { q:"As a Jain, finding the Tattvartha Sutra on ReadLoop was wonderful. Thursday is my favourite reading day.", n:"Rohan S.", r:"Business Owner · Leicester" },
-              ].map(t => (
-                <div key={t.n} className={styles.testimonial}>
+              ].map((t, i) => (
+                <div key={t.n} className={`${styles.testimonial} reveal`} style={{ animationDelay: `${i * 0.06}s` }}>
                   <p className={styles.testimonialQ}>&ldquo;{t.q}&rdquo;</p>
                   <div><strong style={{fontSize:'0.9rem'}}>{t.n}</strong><br/><span style={{fontSize:'0.8rem',color:'var(--silver)'}}>{t.r}</span></div>
                 </div>
@@ -267,6 +284,7 @@ export default function Home() {
       </main>
       <Footer />
       <ToastContainer toasts={toasts} />
+      <MilestoneModal milestone={milestone} onClose={clearMilestone} />
     </>
   )
 }

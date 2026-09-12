@@ -1,10 +1,10 @@
 .nav {
   position: sticky; top: 0; z-index: 100;
   background: var(--navy);
-  border-bottom: 2px solid rgba(201,168,76,0.3);
+  border-bottom: 2px solid rgba(224,168,62,0.3);
   transition: box-shadow 0.2s;
 }
-.nav.scrolled { box-shadow: 0 4px 24px rgba(10,22,40,0.3); }
+.nav.scrolled { box-shadow: 0 4px 24px rgba(10,31,28,0.3); }
 .inner {
   max-width: var(--max-w); margin: 0 auto;
   padding: 0 1.5rem; height: 58px;
@@ -27,8 +27,11 @@
   background: var(--gold) !important; color: var(--navy) !important;
   padding: 0.4rem 1.1rem; border-radius: var(--radius-sm);
   font-weight: 700 !important; font-size: 0.83rem !important;
+  transition: background 0.18s ease, transform 0.18s ease;
 }
-.cta:hover { background: var(--gold2) !important; }
+.cta:hover { background: var(--gold2) !important; transform: translateY(-1px); }
+.cta:active { transform: translateY(0) scale(0.96); }
+.rightControls { display: flex; align-items: center; gap: 0.8rem; }
 .hamburger {
   display: none; flex-direction: column; gap: 5px;
   background: none; border: none; cursor: pointer; padding: 4px;
@@ -43,7 +46,7 @@
     display: none; position: fixed; inset: 58px 0 0 0;
     background: var(--navy); flex-direction: column;
     justify-content: flex-start; padding: 2rem 1.5rem; gap: 1.8rem;
-    border-top: 1px solid rgba(201,168,76,0.2);
+    border-top: 1px solid rgba(224,168,62,0.2);
   }
   .links.open { display: flex; }
   .links a { font-size: 1.1rem; }

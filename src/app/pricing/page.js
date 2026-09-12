@@ -16,7 +16,7 @@ export default function PricingPage() {
           <h1 style={{ fontFamily:'var(--font-serif)', fontSize:'clamp(2rem,5vw,3rem)', color:'var(--white)', marginBottom:'0.7rem' }}>
             Simple, honest pricing
           </h1>
-          <p style={{ color:'#7a9ab8', fontSize:'1.05rem' }}>Start free. Upgrade when you're ready.</p>
+          <p style={{ color:'var(--muted-on-dark)', fontSize:'1.05rem' }}>Start free. Upgrade when you're ready.</p>
         </div>
         <div style={{ padding:'4rem 1.5rem', maxWidth:'1000px', margin:'0 auto' }}>
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))', gap:'1.5rem' }}>
@@ -37,7 +37,7 @@ export default function PricingPage() {
               <div key={plan.name} style={{
                 background:'var(--white)', borderRadius:'var(--radius-lg)', padding:'2rem 1.8rem',
                 border:`2px solid ${plan.featured ? 'var(--gold)' : 'var(--mist)'}`,
-                boxShadow: plan.featured ? '0 4px 24px rgba(201,168,76,0.2)' : 'var(--shadow-sm)',
+                boxShadow: plan.featured ? '0 4px 24px rgba(224,168,62,0.2)' : 'var(--shadow-sm)',
                 position:'relative'
               }}>
                 {plan.featured && (

@@ -10,7 +10,8 @@
   padding: 1.1rem 1.2rem; cursor: pointer; position: relative;
   transition: all 0.18s ease;
 }
-.track:hover { border-color: var(--track-color,var(--mist)); background: var(--white); }
+.track:hover { border-color: var(--track-color,var(--mist)); background: var(--white); transform: translateY(-2px); }
+.track:active { transform: translateY(0) scale(0.99); }
 .track.active { border-color: var(--track-color,var(--gold)); background: var(--white); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
 .trackIcon { font-size: 1.8rem; flex-shrink: 0; width: 40px; text-align: center; margin-top: 2px; }
 .trackInfo { flex: 1; }

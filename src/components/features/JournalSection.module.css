@@ -1,7 +1,7 @@
 .card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--mist); overflow: hidden; box-shadow: var(--shadow); }
-.header { background: linear-gradient(135deg, var(--navy), #162540); padding: 1.3rem 1.8rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem; }
+.header { background: linear-gradient(135deg, var(--navy), var(--navy-hover)); padding: 1.3rem 1.8rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem; }
 .header h3 { font-family: var(--font-serif); color: var(--white); font-size: 1.1rem; }
-.header p { font-size: 0.82rem; color: #7a9ab8; margin-top: 0.2rem; }
+.header p { font-size: 0.82rem; color: var(--muted-on-dark); margin-top: 0.2rem; }
 .count { font-size: 0.8rem; color: var(--teal2); font-weight: 600; }
 .entries { padding: 0 1.8rem; }
 .entry { display: flex; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--smoke); align-items: flex-start; }

@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import ThemeToggle from '@/components/ui/ThemeToggle'
 import styles from './Nav.module.css'
 
 export default function Nav() {
@@ -28,13 +29,16 @@ export default function Nav() {
           <a href="/#signup" className={styles.cta} onClick={() => setMenuOpen(false)}>Start Free</a>
         </div>
 
-        <button
-          className={styles.hamburger}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span /><span /><span />
-        </button>
+        <div className={styles.rightControls}>
+          <ThemeToggle />
+          <button
+            className={styles.hamburger}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span /><span /><span />
+          </button>
+        </div>
       </div>
     </nav>
   )

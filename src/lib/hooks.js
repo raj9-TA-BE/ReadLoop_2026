@@ -20,12 +20,21 @@ function safeParse(str, fallback) {
   try { return JSON.parse(str) } catch { return fallback }
 }
 
+// ─── MILESTONES ───────────────────────────────────────────────────────────────
+const MILESTONES = [
+  { threshold: 3,   icon: '🔥', label: '3-Day Fire' },
+  { threshold: 7,   icon: '⚡', label: 'Week Warrior' },
+  { threshold: 30,  icon: '💎', label: '30-Day Diamond' },
+  { threshold: 100, icon: '👑', label: 'Century Club' },
+]
+
 // ─── STREAK HOOK ──────────────────────────────────────────────────────────────
 export function useStreak() {
   const [streak, setStreak]     = useState(0)
   const [xp, setXp]             = useState(0)
   const [todayRead, setTodayRead] = useState(false)
   const [readDays, setReadDays] = useState([])
+  const [milestone, setMilestone] = useState(null)
 
   useEffect(() => {
     const data = safeParse(storage.get('readloop_streak'), null)
@@ -72,9 +81,15 @@ export function useStreak() {
         readDays: newDays,
         lastBookId: bookId,
       }))
+
+      const hit = MILESTONES.find(m => m.threshold === newStreak)
+      if (hit) setMilestone({ ...hit, streak: newStreak })
+
       return newStreak
     })
   }, [])
+
+  const clearMilestone = useCallback(() => setMilestone(null), [])
 
   const getBadges = useCallback(() => {
     const all = [
@@ -87,7 +102,7 @@ export function useStreak() {
     return all.map(b => ({ ...b, earned: streak >= b.threshold }))
   }, [streak])
 
-  return { streak, xp, todayRead, readDays, markRead, getBadges }
+  return { streak, xp, todayRead, readDays, markRead, getBadges, milestone, clearMilestone }
 }
 
 // ─── COMMUNITY TRACK HOOK ─────────────────────────────────────────────────────
@@ -108,7 +123,7 @@ export function useCommunityTrack() {
   }, [])
 
   const trackMeta = {
-    none:  { label: 'General',              icon: '📚', color: '#C9A84C', communityDay: null },
+    none:  { label: 'General',              icon: '📚', color: '#E0A83E', communityDay: null },
     hindu: { label: 'Hindu Dharma Track',   icon: '🕉️', color: '#FF6B35', communityDay: 'Sunday' },
     jain:  { label: 'Jain Wisdom Track',    icon: '☸️', color: '#7CB9E8', communityDay: 'Thursday' },
   }

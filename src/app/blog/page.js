@@ -22,7 +22,7 @@ export default function BlogPage() {
         <div style={{ background:'var(--navy)', padding:'4rem 1.5rem 3rem' }}>
           <div className="container">
             <h1 style={{ fontFamily:'var(--font-serif)', fontSize:'clamp(1.8rem,4vw,2.8rem)', color:'var(--white)', marginBottom:'0.5rem' }}>Reading Insights</h1>
-            <p style={{ color:'#7a9ab8', fontSize:'1rem' }}>Articles to help you read better, think clearer, and build lasting habits.</p>
+            <p style={{ color:'var(--muted-on-dark)', fontSize:'1rem' }}>Articles to help you read better, think clearer, and build lasting habits.</p>
           </div>
         </div>
         <div className="container" style={{ padding:'3rem 1.5rem' }}>

@@ -1,20 +1,20 @@
 .footer {
   background: var(--navy);
-  border-top: 2px solid rgba(201,168,76,0.2);
+  border-top: 2px solid rgba(224,168,62,0.2);
   padding: 3.5rem 1.5rem 1.5rem;
 }
 .inner {
   max-width: var(--max-w); margin: 0 auto;
   display: flex; gap: 3rem; flex-wrap: wrap;
   padding-bottom: 2.5rem;
-  border-bottom: 1px solid rgba(214,221,232,0.1);
+  border-bottom: 1px solid rgba(227,218,195,0.1);
 }
 .brand { flex: 1; min-width: 200px; }
 .logo {
   font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700;
   color: var(--gold); margin-bottom: 0.5rem;
 }
-.tagline { font-size: 0.85rem; color: #6b82a0; line-height: 1.5; }
+.tagline { font-size: 0.85rem; color: var(--muted-on-dark-2); line-height: 1.5; }
 .social { display: flex; gap: 0.8rem; margin-top: 1rem; }
 .social a {
   display: flex; align-items: center; justify-content: center;
@@ -32,11 +32,11 @@
   margin-bottom: 0.4rem;
 }
 .cols a {
-  font-size: 0.87rem; color: #6b82a0; text-decoration: none; transition: color 0.18s;
+  font-size: 0.87rem; color: var(--muted-on-dark-2); text-decoration: none; transition: color 0.18s;
 }
 .cols a:hover { color: var(--gold); }
 .bottom {
   max-width: var(--max-w); margin: 1.5rem auto 0;
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
-  font-size: 0.75rem; color: #4a5a6d;
+  font-size: 0.75rem; color: var(--faint-on-dark);
 }
