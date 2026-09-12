@@ -1,0 +1,29 @@
+.card { background: var(--navy); border-radius: var(--radius-lg); padding: 1.8rem; border: 1px solid rgba(201,168,76,0.2); }
+.top { display: flex; align-items: center; gap: 2rem; margin-bottom: 1.4rem; flex-wrap: wrap; }
+.streakBadge { display: flex; align-items: center; gap: 0.8rem; }
+.flame { font-size: 2.8rem; line-height: 1; }
+.count { font-family: var(--font-serif); font-size: 3rem; font-weight: 700; color: var(--gold); line-height: 1; }
+.label { font-size: 0.8rem; color: #6b82a0; margin-top: 0.1rem; }
+.levelBox { flex: 1; min-width: 140px; }
+.levelNum { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 700; color: var(--teal2); margin-bottom: 0.4rem; }
+.xpBar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; margin-bottom: 0.3rem; }
+.xpFill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--teal2)); border-radius: 3px; transition: width 0.5s ease; }
+.xpLabel { font-size: 0.72rem; color: #6b82a0; }
+.totalXp { text-align: right; }
+.xpBig { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 700; color: var(--gold); }
+.xpSub { font-size: 0.72rem; color: #6b82a0; }
+.weekGrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; margin-bottom: 1.2rem; }
+.day { aspect-ratio: 1; border-radius: var(--radius-sm); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; background: rgba(255,255,255,0.05); transition: background 0.2s; }
+.day.read { background: rgba(11,122,117,0.35); }
+.day.today { background: rgba(201,168,76,0.25); border: 1px solid rgba(201,168,76,0.4); }
+.dayName { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.05em; color: rgba(255,255,255,0.45); }
+.dayIcon { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+.day.read .dayIcon { color: var(--teal2); }
+.day.today .dayIcon { color: var(--gold); }
+.badges { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+.badge { display: flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; padding: 0.25rem 0.7rem; border-radius: 20px; border: 1px solid; }
+.badge.earned { background: rgba(201,168,76,0.15); color: var(--gold); border-color: rgba(201,168,76,0.35); }
+.badge.locked { background: rgba(107,122,141,0.1); color: #4a5a6d; border-color: rgba(107,122,141,0.15); }
+.markBtn { width: 100%; padding: 0.85rem; background: var(--gold); color: var(--navy); font-size: 0.95rem; font-weight: 700; border: none; border-radius: var(--radius); cursor: pointer; transition: background 0.18s; }
+.markBtn:hover:not(:disabled) { background: var(--gold2); }
+.markBtn.done { background: rgba(11,122,117,0.3); color: var(--teal2); cursor: default; }

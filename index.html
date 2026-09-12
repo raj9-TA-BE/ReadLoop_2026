@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="ReadLoop — One book essence a day. Build the habit. Transform your life."/>
+<title>ReadLoop — Daily Reading Habit Platform</title>
+<style>
+  :root {
+    --navy:   #0A1628;
+    --gold:   #C9A84C;
+    --teal:   #0B7A75;
+    --slate:  #2D3A4A;
+    --cream:  #F8F5EE;
+    --smoke:  #EFF2F7;
+    --mist:   #D6DDE8;
+    --ink:    #1A2332;
+    --silver: #6B7A8D;
+    --white:  #FFFFFF;
+    --orange: #D4622A;
+    --radius: 10px;
+    --shadow: 0 4px 24px rgba(10,22,40,0.10);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.65;
+  }
+  /* ── TYPOGRAPHY ── */
+  h1,h2,h3,h4 { font-family: 'Georgia', serif; font-weight: 700; }
+  .sans { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 56px;
+    border-bottom: 2px solid var(--gold);
+  }
+  .nav-brand {
+    font-family: Georgia, serif; font-size: 1.25rem; font-weight: 700;
+    color: var(--gold); text-decoration: none; letter-spacing: 0.02em;
+  }
+  .nav-brand span { color: var(--white); }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a {
+    font-family: -apple-system, sans-serif; font-size: 0.85rem;
+    color: var(--mist); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: var(--navy) !important;
+    padding: 0.4rem 1rem; border-radius: 6px;
+    font-weight: 700 !important; font-size: 0.82rem !important;
+  }
+  .nav-cta:hover { background: #e0ba60 !important; color: var(--navy) !important; }
+
+  /* ── HERO ── */
+  #hero {
+    background: var(--navy);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-family: -apple-system, sans-serif; font-size: 0.78rem; font-weight: 600;
+    color: var(--gold); letter-spacing: 0.12em;
+    border: 1px solid rgba(201,168,76,0.4); border-radius: 20px;
+    padding: 0.3rem 0.9rem; margin-bottom: 1.5rem;
+  }
+  #hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    color: var(--white); line-height: 1.15; max-width: 780px; margin: 0 auto 1.4rem;
+  }
+  #hero h1 em { color: var(--gold); font-style: normal; }
+  .hero-sub {
+    font-family: -apple-system, sans-serif;
+    font-size: 1.1rem; color: #9aafc4;
+    max-width: 560px; margin: 0 auto 2.5rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    font-family: -apple-system, sans-serif; font-size: 0.95rem; font-weight: 700;
+    border: none; border-radius: 8px; padding: 0.8rem 2rem;
+    cursor: pointer; transition: background 0.2s, transform 0.15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: #e0ba60; transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--mist);
+    font-family: -apple-system, sans-serif; font-size: 0.95rem;
+    border: 1px solid rgba(214,221,232,0.35); border-radius: 8px; padding: 0.8rem 2rem;
+    cursor: pointer; transition: border-color 0.2s, color 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-stats {
+    display: flex; gap: 3rem; justify-content: center;
+    margin-top: 3.5rem; padding-top: 2.5rem;
+    border-top: 1px solid rgba(214,221,232,0.15);
+    flex-wrap: wrap;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    display: block; font-family: Georgia, serif; font-size: 2rem; font-weight: 700;
+    color: var(--gold);
+  }
+  .stat-label {
+    font-family: -apple-system, sans-serif; font-size: 0.8rem;
+    color: #6b82a0; margin-top: 0.2rem;
+  }
+
+  /* ── TODAY'S BOOK ── */
+  #today {
+    max-width: 820px; margin: 3rem auto; padding: 0 1.5rem;
+  }
+  .section-label {
+    font-family: -apple-system, sans-serif; font-size: 0.78rem; font-weight: 600;
+    color: var(--teal); letter-spacing: 0.1em;
+    margin-bottom: 0.6rem;
+  }
+  .book-card {
+    background: var(--white);
+    border-radius: 14px; overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--mist);
+  }
+  .book-card-header {
+    background: var(--navy); padding: 1.5rem 2rem;
+    display: flex; align-items: flex-start; gap: 1.5rem;
+  }
+  .book-spine {
+    width: 52px; height: 74px; border-radius: 4px;
+    background: linear-gradient(135deg, var(--gold) 0%, #a07830 100%);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 1.4rem;
+  }
+  .book-meta h2 { color: var(--white); font-size: 1.3rem; line-height: 1.25; }
+  .book-meta .author {
+    font-family: -apple-system, sans-serif; font-size: 0.85rem;
+    color: #7a9ab8; margin-top: 0.3rem;
+  }
+  .book-meta .tag-row { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; }
+  .tag {
+    font-family: -apple-system, sans-serif; font-size: 0.7rem; font-weight: 600;
+    background: rgba(201,168,76,0.18); color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3); border-radius: 20px;
+    padding: 0.18rem 0.6rem;
+  }
+  .book-card-body { padding: 1.8rem 2rem; }
+  .essence-label {
+    font-family: -apple-system, sans-serif; font-size: 0.72rem; font-weight: 700;
+    color: var(--silver); letter-spacing: 0.1em; margin-bottom: 0.7rem;
+  }
+  .essence-text {
+    font-size: 1.02rem; line-height: 1.75; color: var(--ink);
+    max-width: 70ch;
+  }
+  .quote-block {
+    margin: 1.4rem 0; padding: 1rem 1.2rem;
+    background: var(--smoke);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic; font-size: 0.97rem; color: var(--slate);
+    line-height: 1.65;
+  }
+  .lessons-list { margin-top: 1.2rem; }
+  .lessons-list h4 {
+    font-family: -apple-system, sans-serif; font-size: 0.72rem; font-weight: 700;
+    color: var(--silver); letter-spacing: 0.1em; margin-bottom: 0.7rem;
+  }
+  .lesson-item {
+    display: flex; gap: 0.7rem; align-items: flex-start;
+    margin-bottom: 0.6rem; font-size: 0.95rem; color: var(--ink);
+  }
+  .lesson-dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--teal); color: var(--white);
+    font-family: -apple-system, sans-serif; font-size: 0.65rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .book-card-footer {
+    padding: 1rem 2rem; background: var(--smoke);
+    border-top: 1px solid var(--mist);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 0.8rem;
+  }
+  .action-btn {
+    font-family: -apple-system, sans-serif; font-size: 0.82rem; font-weight: 600;
+    padding: 0.45rem 1rem; border-radius: 6px; cursor: pointer; border: none;
+    transition: background 0.2s;
+  }
+  .btn-teal { background: var(--teal); color: var(--white); }
+  .btn-teal:hover { background: #0a6b66; }
+  .btn-outline-sm {
+    background: transparent; color: var(--slate);
+    border: 1px solid var(--mist); border-radius: 6px;
+    font-family: -apple-system, sans-serif; font-size: 0.82rem; font-weight: 600;
+    padding: 0.45rem 1rem; cursor: pointer; transition: border-color 0.2s;
+  }
+  .btn-outline-sm:hover { border-color: var(--teal); color: var(--teal); }
+  .book-nav {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-family: -apple-system, sans-serif; font-size: 0.8rem; color: var(--silver);
+  }
+  .book-nav button {
+    background: var(--white); border: 1px solid var(--mist);
+    border-radius: 6px; width: 28px; height: 28px;
+    cursor: pointer; font-size: 0.8rem; transition: border-color 0.2s;
+  }
+  .book-nav button:hover { border-color: var(--teal); }
+
+  /* ── STREAK TRACKER ── */
+  #streak {
+    background: var(--white);
+    max-width: 820px; margin: 0 auto 3rem; padding: 0 1.5rem;
+  }
+  .streak-card {
+    background: var(--navy); border-radius: 14px;
+    padding: 1.8rem 2rem; box-shadow: var(--shadow);
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+  .streak-top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.4rem; flex-wrap: wrap; gap: 1rem;
+  }
+  .streak-badge {
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .streak-flame {
+    font-size: 2.8rem; line-height: 1;
+  }
+  .streak-count {
+    font-family: Georgia, serif; font-size: 3rem; font-weight: 700; color: var(--gold); line-height: 1;
+  }
+  .streak-label {
+    font-family: -apple-system, sans-serif; font-size: 0.82rem; color: #6b82a0; margin-top: 0.1rem;
+  }
+  .streak-xp {
+    text-align: right;
+  }
+  .xp-num {
+    font-family: -apple-system, sans-serif; font-size: 1.5rem; font-weight: 700;
+    color: var(--teal);
+  }
+  .xp-label {
+    font-family: -apple-system, sans-serif; font-size: 0.75rem; color: #6b82a0;
+  }
+  .week-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .day-cell {
+    aspect-ratio: 1; border-radius: 8px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: -apple-system, sans-serif; font-size: 0.68rem; gap: 3px;
+  }
+  .day-cell.read { background: var(--teal); }
+  .day-cell.today { background: var(--gold); }
+  .day-cell.missed { background: rgba(214,221,232,0.12); }
+  .day-cell.future { background: rgba(214,221,232,0.06); }
+  .day-name { color: rgba(255,255,255,0.6); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.05em; }
+  .day-icon { font-size: 1rem; }
+  .streak-actions {
+    display: flex; gap: 0.8rem; flex-wrap: wrap;
+  }
+  .mark-read-btn {
+    flex: 1; min-width: 160px;
+    background: var(--gold); color: var(--navy);
+    font-family: -apple-system, sans-serif; font-size: 0.9rem; font-weight: 700;
+    border: none; border-radius: 8px; padding: 0.7rem 1.5rem;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .mark-read-btn:hover { background: #e0ba60; }
+  .mark-read-btn:disabled { background: var(--teal); color: white; cursor: default; }
+  .badges-row {
+    display: flex; gap: 0.6rem; flex-wrap: wrap;
+  }
+  .badge {
+    font-family: -apple-system, sans-serif; font-size: 0.72rem;
+    background: rgba(201,168,76,0.15); color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3); border-radius: 20px;
+    padding: 0.25rem 0.7rem;
+  }
+  .badge.locked { background: rgba(107,122,141,0.1); color: #6b82a0; border-color: rgba(107,122,141,0.2); }
+
+  /* ── EMAIL SIGNUP ── */
+  #signup {
+    background: var(--teal);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  #signup h2 {
+    color: var(--white); font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    max-width: 580px; margin: 0 auto 0.8rem; line-height: 1.25;
+  }
+  #signup p {
+    font-family: -apple-system, sans-serif; font-size: 1rem; color: rgba(255,255,255,0.8);
+    max-width: 420px; margin: 0 auto 2rem;
+  }
+  .signup-form {
+    display: flex; gap: 0.7rem; max-width: 440px; margin: 0 auto;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .signup-form input {
+    flex: 1; min-width: 220px;
+    font-family: -apple-system, sans-serif; font-size: 0.95rem;
+    padding: 0.75rem 1rem; border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 8px; background: rgba(255,255,255,0.15);
+    color: var(--white); outline: none;
+    transition: border-color 0.2s;
+  }
+  .signup-form input::placeholder { color: rgba(255,255,255,0.55); }
+  .signup-form input:focus { border-color: var(--gold); }
+  .signup-form button {
+    background: var(--navy); color: var(--gold);
+    font-family: -apple-system, sans-serif; font-size: 0.92rem; font-weight: 700;
+    border: none; border-radius: 8px; padding: 0.75rem 1.5rem;
+    cursor: pointer; transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .signup-form button:hover { background: #162540; }
+  .signup-success {
+    display: none; background: rgba(255,255,255,0.18);
+    border-radius: 10px; padding: 1.2rem 2rem;
+    font-family: -apple-system, sans-serif; color: var(--white); font-size: 1rem;
+  }
+  .signup-privacy {
+    font-family: -apple-system, sans-serif; font-size: 0.75rem;
+    color: rgba(255,255,255,0.55); margin-top: 0.8rem;
+  }
+
+  /* ── HOW IT WORKS ── */
+  #how {
+    max-width: 900px; margin: 4rem auto; padding: 0 2rem;
+  }
+  #how h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 2.5rem; text-align: center;
+  }
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  .step-card {
+    background: var(--white); border-radius: 12px; padding: 1.5rem;
+    border: 1px solid var(--mist); box-shadow: 0 2px 12px rgba(10,22,40,0.06);
+  }
+  .step-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .step-card h3 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--navy); }
+  .step-card p {
+    font-family: -apple-system, sans-serif; font-size: 0.88rem;
+    color: var(--silver); line-height: 1.6;
+  }
+
+  /* ── PRICING ── */
+  #pricing {
+    background: var(--smoke); padding: 4rem 2rem;
+  }
+  .pricing-inner { max-width: 800px; margin: 0 auto; }
+  #pricing h2 { text-align: center; margin-bottom: 0.5rem; font-size: clamp(1.5rem, 3vw, 2rem); }
+  .pricing-sub {
+    font-family: -apple-system, sans-serif; font-size: 0.95rem;
+    color: var(--silver); text-align: center; margin-bottom: 2.5rem;
+  }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem;
+  }
+  .plan-card {
+    background: var(--white); border-radius: 14px; padding: 1.8rem 1.5rem;
+    border: 2px solid var(--mist); position: relative;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .plan-card:hover { border-color: var(--teal); box-shadow: 0 4px 20px rgba(11,122,117,0.12); }
+  .plan-card.featured {
+    border-color: var(--gold); box-shadow: 0 4px 20px rgba(201,168,76,0.18);
+  }
+  .plan-badge {
+    position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: var(--navy);
+    font-family: -apple-system, sans-serif; font-size: 0.68rem; font-weight: 700;
+    padding: 0.2rem 0.8rem; border-radius: 20px; letter-spacing: 0.06em; white-space: nowrap;
+  }
+  .plan-name {
+    font-family: -apple-system, sans-serif; font-size: 0.78rem; font-weight: 700;
+    color: var(--silver); letter-spacing: 0.1em; margin-bottom: 0.4rem;
+  }
+  .plan-price {
+    font-family: Georgia, serif; font-size: 2.2rem; font-weight: 700; color: var(--navy); line-height: 1;
+  }
+  .plan-price span {
+    font-family: -apple-system, sans-serif; font-size: 0.85rem; font-weight: 400; color: var(--silver);
+  }
+  .plan-features {
+    list-style: none; margin: 1.2rem 0 1.5rem;
+  }
+  .plan-features li {
+    font-family: -apple-system, sans-serif; font-size: 0.87rem; color: var(--ink);
+    padding: 0.35rem 0; border-bottom: 1px solid var(--smoke);
+    display: flex; gap: 0.5rem; align-items: flex-start;
+  }
+  .plan-features li .check { color: var(--teal); flex-shrink: 0; }
+  .plan-features li .cross { color: var(--mist); flex-shrink: 0; }
+  .plan-btn {
+    width: 100%; padding: 0.7rem;
+    font-family: -apple-system, sans-serif; font-size: 0.9rem; font-weight: 700;
+    border-radius: 8px; border: none; cursor: pointer; transition: background 0.2s;
+  }
+  .plan-btn.primary { background: var(--gold); color: var(--navy); }
+  .plan-btn.primary:hover { background: #e0ba60; }
+  .plan-btn.secondary { background: var(--smoke); color: var(--slate); border: 1px solid var(--mist); }
+  .plan-btn.secondary:hover { background: var(--mist); }
+
+  /* ── TRANSFORMATION JOURNAL ── */
+  #journal {
+    max-width: 820px; margin: 4rem auto; padding: 0 1.5rem;
+  }
+  .journal-card {
+    background: var(--white); border-radius: 14px;
+    border: 1px solid var(--mist); overflow: hidden; box-shadow: var(--shadow);
+  }
+  .journal-header {
+    background: linear-gradient(135deg, var(--navy) 0%, #162540 100%);
+    padding: 1.4rem 1.8rem;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  }
+  .journal-header h3 { color: var(--white); font-size: 1.1rem; }
+  .journal-header p {
+    font-family: -apple-system, sans-serif; font-size: 0.8rem; color: #7a9ab8;
+    margin-top: 0.2rem;
+  }
+  .journal-entries { padding: 1.4rem 1.8rem; }
+  .journal-entry {
+    padding: 1rem 0; border-bottom: 1px solid var(--smoke);
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .journal-entry:last-child { border-bottom: none; }
+  .entry-date {
+    font-family: -apple-system, sans-serif; font-size: 0.72rem; font-weight: 600;
+    color: var(--silver); min-width: 52px;
+  }
+  .entry-book { font-size: 0.82rem; color: var(--teal); font-style: italic; margin-bottom: 0.2rem; }
+  .entry-action { font-size: 0.92rem; color: var(--ink); }
+  .journal-add {
+    padding: 1.2rem 1.8rem; background: var(--smoke); border-top: 1px solid var(--mist);
+  }
+  .journal-add p {
+    font-family: -apple-system, sans-serif; font-size: 0.8rem; color: var(--silver); margin-bottom: 0.6rem;
+  }
+  .journal-input-row { display: flex; gap: 0.6rem; }
+  .journal-input {
+    flex: 1; font-family: -apple-system, sans-serif; font-size: 0.9rem;
+    padding: 0.55rem 0.9rem; border: 1.5px solid var(--mist);
+    border-radius: 7px; outline: none; background: var(--white);
+    transition: border-color 0.2s;
+  }
+  .journal-input:focus { border-color: var(--teal); }
+  .journal-submit {
+    background: var(--teal); color: var(--white);
+    font-family: -apple-system, sans-serif; font-size: 0.85rem; font-weight: 700;
+    border: none; border-radius: 7px; padding: 0.55rem 1rem; cursor: pointer;
+    transition: background 0.2s; white-space: nowrap;
+  }
+  .journal-submit:hover { background: #0a6b66; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); border-top: 2px solid rgba(201,168,76,0.25);
+    padding: 2.5rem 2rem 1.5rem;
+  }
+  .footer-inner {
+    max-width: 900px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 2rem;
+  }
+  .footer-brand { color: var(--gold); font-size: 1.2rem; font-weight: 700; }
+  .footer-tagline {
+    font-family: -apple-system, sans-serif; font-size: 0.82rem;
+    color: #6b82a0; margin-top: 0.3rem;
+  }
+  .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .footer-links a {
+    font-family: -apple-system, sans-serif; font-size: 0.83rem;
+    color: #6b82a0; text-decoration: none;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom {
+    max-width: 900px; margin: 2rem auto 0;
+    padding-top: 1rem; border-top: 1px solid rgba(214,221,232,0.1);
+    font-family: -apple-system, sans-serif; font-size: 0.75rem; color: #4a5a6d;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 999;
+    background: var(--navy); color: var(--white);
+    font-family: -apple-system, sans-serif; font-size: 0.88rem;
+    padding: 0.8rem 1.3rem; border-radius: 10px;
+    border-left: 4px solid var(--gold);
+    box-shadow: 0 8px 30px rgba(10,22,40,0.3);
+    transform: translateX(120%); transition: transform 0.35s cubic-bezier(.22,.68,0,1.2);
+    max-width: 300px;
+  }
+  .toast.show { transform: translateX(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .hero-stats { gap: 1.5rem; }
+    .book-card-header { flex-direction: column; gap: 1rem; }
+    .book-card-footer { flex-direction: column; }
+    .streak-top { flex-direction: column; }
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 0.8rem; }
+    .journal-input-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">Read<span>Loop</span></a>
+  <div class="nav-links">
+    <a href="#today">Today</a>
+    <a href="#streak">Streak</a>
+    <a href="#pricing">Plans</a>
+    <a href="#signup" class="nav-cta">Start Free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">One book · One day · One habit</div>
+  <h1>The reading habit that actually <em>sticks</em></h1>
+  <p class="hero-sub sans">Get one distilled book essence delivered daily. Track your streak. Log what you do differently. Become who you're reading to be.</p>
+  <div class="hero-actions">
+    <a href="#signup" class="btn-primary">Start Free — No Card Needed</a>
+    <a href="#today" class="btn-ghost">Read Today's Book</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">365</span>
+      <div class="stat-label sans">books a year</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">5 min</span>
+      <div class="stat-label sans">per day</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">40K+</span>
+      <div class="stat-label sans">readers</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">92%</span>
+      <div class="stat-label sans">finish each essence</div>
+    </div>
+  </div>
+</section>
+
+<!-- TODAY'S BOOK -->
+<section id="today" style="max-width:820px;margin:3rem auto 0;padding:0 1.5rem;">
+  <div class="section-label sans">TODAY'S BOOK — DAY <span id="day-counter">1</span> OF 365</div>
+  <div class="book-card" id="book-card">
+    <div class="book-card-header">
+      <div class="book-spine" id="book-emoji">📚</div>
+      <div class="book-meta">
+        <h2 id="book-title">Atomic Habits</h2>
+        <div class="author sans" id="book-author">James Clear</div>
+        <div class="tag-row">
+          <span class="tag" id="tag1">Habits</span>
+          <span class="tag" id="tag2">Productivity</span>
+          <span class="tag" id="tag3">Psychology</span>
+        </div>
+      </div>
+    </div>
+    <div class="book-card-body">
+      <div class="essence-label sans">CORE ESSENCE</div>
+      <p class="essence-text" id="book-essence">
+        Tiny 1% improvements compound into remarkable results over time. Forget goals — build systems instead. Every action you take is a vote for the identity you want to become. The habit loop (cue, craving, response, reward) can be redesigned with four laws: make it obvious, make it attractive, make it easy, and make it satisfying. Your environment shapes your behaviour more than your willpower ever will.
+      </p>
+      <div class="quote-block" id="book-quote">
+        "You do not rise to the level of your goals. You fall to the level of your systems."
+      </div>
+      <div class="lessons-list">
+        <h4 class="sans">3 LESSONS TO ACT ON TODAY</h4>
+        <div class="lesson-item"><div class="lesson-dot sans">1</div><span id="lesson1">Identity-based habits outlast motivation-based ones — ask who you want to be, not what you want to achieve.</span></div>
+        <div class="lesson-item"><div class="lesson-dot sans">2</div><span id="lesson2">Environment design beats willpower — put your book on your pillow, not on a shelf.</span></div>
+        <div class="lesson-item"><div class="lesson-dot sans">3</div><span id="lesson3">Never miss twice — the recovery habit is the real habit that defines you.</span></div>
+      </div>
+    </div>
+    <div class="book-card-footer">
+      <div class="book-nav sans">
+        <button onclick="changeBook(-1)">‹</button>
+        <span id="book-pos">1 / 10</span>
+        <button onclick="changeBook(1)">›</button>
+      </div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <button class="action-btn btn-outline-sm" onclick="saveBook()">♡ Save</button>
+        <button class="action-btn btn-outline-sm" onclick="shareBook()">↗ Share</button>
+        <button class="action-btn btn-teal" onclick="markRead()">✓ Mark as Read</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STREAK TRACKER -->
+<section id="streak" style="max-width:820px;margin:2.5rem auto 0;padding:0 1.5rem;">
+  <div class="section-label sans">YOUR READING STREAK</div>
+  <div class="streak-card">
+    <div class="streak-top">
+      <div class="streak-badge">
+        <div class="streak-flame">🔥</div>
+        <div>
+          <div class="streak-count" id="streak-count">7</div>
+          <div class="streak-label sans">day streak</div>
+        </div>
+      </div>
+      <div class="streak-xp">
+        <div class="xp-num sans" id="xp-count">420 XP</div>
+        <div class="xp-label sans">total experience</div>
+      </div>
+      <div>
+        <div class="badges-row">
+          <span class="badge sans">🌱 Week 1</span>
+          <span class="badge sans">🔥 On Fire</span>
+          <span class="badge locked sans">💎 30 Days</span>
+          <span class="badge locked sans">👑 100 Days</span>
+        </div>
+      </div>
+    </div>
+    <div class="week-grid" id="week-grid">
+      <!-- filled by JS -->
+    </div>
+    <div class="streak-actions">
+      <button class="mark-read-btn sans" id="mark-today-btn" onclick="markTodayRead()">
+        ✓ Mark Today's Book as Read
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFORMATION JOURNAL -->
+<section id="journal" style="max-width:820px;margin:2.5rem auto 0;padding:0 1.5rem;">
+  <div class="section-label sans">YOUR TRANSFORMATION JOURNAL</div>
+  <div class="journal-card">
+    <div class="journal-header">
+      <div>
+        <h3>What I did differently</h3>
+        <p class="sans">One action taken from each book. Your living proof of change.</p>
+      </div>
+      <div style="font-family:-apple-system,sans-serif;font-size:0.82rem;color:#7a9ab8;" class="sans" id="journal-count">3 entries</div>
+    </div>
+    <div class="journal-entries" id="journal-entries">
+      <div class="journal-entry">
+        <div class="entry-date sans">Sep 9</div>
+        <div>
+          <div class="entry-book">Man's Search for Meaning — Viktor Frankl</div>
+          <div class="entry-action">I wrote down what gives my work meaning, not just what I earn from it.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="entry-date sans">Sep 10</div>
+        <div>
+          <div class="entry-book">The Power of Now — Eckhart Tolle</div>
+          <div class="entry-action">Put my phone in another room for 2 hours during deep work. First time in months.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="entry-date sans">Sep 11</div>
+        <div>
+          <div class="entry-book">Atomic Habits — James Clear</div>
+          <div class="entry-action">Moved my book to my pillow so I read before checking my phone each morning.</div>
+        </div>
+      </div>
+    </div>
+    <div class="journal-add">
+      <p class="sans">What's one thing you'll do differently from today's book?</p>
+      <div class="journal-input-row">
+        <input type="text" class="journal-input sans" id="journal-input" placeholder="e.g. I will set my reading trigger for 7am with my coffee..." maxlength="200"/>
+        <button class="journal-submit sans" onclick="addJournalEntry()">Log it</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <h2>Built for habit, not just reading</h2>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-icon">⏰</div>
+      <h3>Daily trigger</h3>
+      <p class="sans">Set your reading moment — coffee, commute, lunch. We deliver your essence at exactly that time, every day.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-icon">🧠</div>
+      <h3>AI personalisation</h3>
+      <p class="sans">Every like, save, and skip teaches ReadLoop what you need next. No two users see the same sequence.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-icon">🔥</div>
+      <h3>Streak & XP</h3>
+      <p class="sans">Your streak is your proof. Earn XP, unlock badges, and protect your record — the way Duolingo made languages addictive.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-icon">📓</div>
+      <h3>Transformation journal</h3>
+      <p class="sans">Log one real action from each book. Over a year, this becomes an irreplaceable record of who you became.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-icon">👥</div>
+      <h3>Reading pods</h3>
+      <p class="sans">Join a pod of 5 with shared goals. Accountability partners who nudge you when you miss a day.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-icon">🎙️</div>
+      <h3>Live author sessions</h3>
+      <p class="sans">Monthly live Q&A with the authors behind your favourite essences. Ask the questions you wish you could ask.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="pricing-inner">
+    <h2>Simple, honest pricing</h2>
+    <p class="pricing-sub sans">Start free. Upgrade when you're ready. No hidden fees.</p>
+    <div class="pricing-grid">
+      <div class="plan-card">
+        <div class="plan-name sans">FREE</div>
+        <div class="plan-price">£0 <span>/month</span></div>
+        <ul class="plan-features sans">
+          <li><span class="check">✓</span> 1 book essence per day</li>
+          <li><span class="check">✓</span> Streak tracker</li>
+          <li><span class="check">✓</span> 7-day journal history</li>
+          <li><span class="check">✓</span> 1 reading pod</li>
+          <li><span class="cross">✕</span> AI recommendations</li>
+          <li><span class="cross">✕</span> Archive access</li>
+          <li><span class="cross">✕</span> Author session replays</li>
+        </ul>
+        <button class="plan-btn secondary" onclick="scrollToSignup()">Get started free</button>
+      </div>
+      <div class="plan-card featured">
+        <div class="plan-badge sans">MOST POPULAR</div>
+        <div class="plan-name sans">PREMIUM</div>
+        <div class="plan-price">£6.99 <span>/month</span></div>
+        <ul class="plan-features sans">
+          <li><span class="check">✓</span> Everything in Free</li>
+          <li><span class="check">✓</span> Full 365-day archive</li>
+          <li><span class="check">✓</span> AI book recommendations</li>
+          <li><span class="check">✓</span> Full journal history</li>
+          <li><span class="check">✓</span> 3 reading pods</li>
+          <li><span class="check">✓</span> Author session replays</li>
+          <li><span class="check">✓</span> No ads</li>
+        </ul>
+        <button class="plan-btn primary" onclick="scrollToSignup()">Start 7-day free trial</button>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name sans">PRO</div>
+        <div class="plan-price">£14.99 <span>/month</span></div>
+        <ul class="plan-features sans">
+          <li><span class="check">✓</span> Everything in Premium</li>
+          <li><span class="check">✓</span> Unlimited pods</li>
+          <li><span class="check">✓</span> PDF journal export</li>
+          <li><span class="check">✓</span> Priority Q&A at author sessions</li>
+          <li><span class="check">✓</span> Early access to new books</li>
+          <li><span class="check">✓</span> 20% book discount</li>
+          <li><span class="check">✓</span> Team dashboard (corporate)</li>
+        </ul>
+        <button class="plan-btn secondary" onclick="scrollToSignup()">Start 7-day free trial</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL SIGNUP -->
+<section id="signup">
+  <h2>Start your streak today. It takes 30 seconds.</h2>
+  <p class="sans">Join 40,000+ readers who read smarter, not longer.</p>
+  <form class="signup-form" onsubmit="handleSignup(event)">
+    <input type="email" id="signup-email" placeholder="your@email.com" required/>
+    <button type="submit" class="sans">Get Daily Book →</button>
+  </form>
+  <div class="signup-success" id="signup-success">
+    🎉 You're in! Check your inbox — your first book essence arrives tomorrow at 8am.
+  </div>
+  <div class="signup-privacy sans">No spam. Unsubscribe any time. GDPR compliant.</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">ReadLoop</div>
+      <div class="footer-tagline sans">One book a day. Compounding for life.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#today">Today's Book</a>
+      <a href="#how">How It Works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="mailto:hello@readloop.co.uk">Contact</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+  <div class="footer-bottom sans">
+    <span>© 2026 ReadLoop · Built by Raj Shah · Luton, UK</span>
+    <span>readloop.co.uk</span>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast sans" id="toast"></div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const books = [
+  { title:"Atomic Habits", author:"James Clear", emoji:"⚛️",
+    tag1:"Habits", tag2:"Productivity", tag3:"Psychology",
+    essence:"Tiny 1% improvements compound into remarkable results over time. Forget goals — build systems instead. Every action you take is a vote for the identity you want to become. The habit loop (cue, craving, response, reward) can be redesigned with four laws: make it obvious, make it attractive, make it easy, and make it satisfying. Your environment shapes your behaviour more than your willpower ever will.",
+    quote:'"You do not rise to the level of your goals. You fall to the level of your systems."',
+    l1:"Identity-based habits outlast motivation-based ones — ask who you want to be, not what you want to achieve.",
+    l2:"Environment design beats willpower — put your book on your pillow, not on a shelf.",
+    l3:"Never miss twice — the recovery habit is the real habit that defines you."
+  },
+  { title:"Think and Grow Rich", author:"Napoleon Hill", emoji:"💡",
+    tag1:"Mindset", tag2:"Success", tag3:"Wealth",
+    essence:"Success begins in the mind. Hill studied 500 wealthy individuals and distilled 13 principles — chief among them: desire, faith, persistence, and the mastermind. Your dominant thought pattern literally programmes your outcomes. The burning desire for a definite purpose, combined with unwavering faith, is the formula behind every great fortune ever built.",
+    quote:'"Whatever the mind can conceive and believe, it can achieve."',
+    l1:"Burn your mental bridges — commit totally to your goal with no exit strategy.",
+    l2:"Write your chief definite purpose down with a specific deadline and read it aloud twice daily.",
+    l3:"A mastermind group of 2+ aligned minds creates a third, invisible mind that solves problems alone cannot."
+  },
+  { title:"The Power of Now", author:"Eckhart Tolle", emoji:"🌅",
+    tag1:"Mindfulness", tag2:"Spirituality", tag3:"Wellbeing",
+    essence:"Most human suffering is manufactured by the ego's compulsive thinking about the past or the future. The present moment is the only place life actually exists. When you observe your thoughts without identifying with them, you discover the real you — the watcher — which is pure awareness. Presence dissolves psychological pain at its root.",
+    quote:'"Realise deeply that the present moment is all you ever have."',
+    l1:"When anxiety arises, ask: is there actually a problem right now, in this exact moment?",
+    l2:"Your mind is a tool — you are not your mind. Watch your thoughts as a spectator.",
+    l3:"Pain is resistance to what is. Radical acceptance of the present neutralises suffering instantly."
+  },
+  { title:"Man's Search for Meaning", author:"Viktor E. Frankl", emoji:"🕯️",
+    tag1:"Philosophy", tag2:"Resilience", tag3:"Purpose",
+    essence:"Even inside Auschwitz, Frankl observed that prisoners who found meaning survived longer. Logotherapy teaches that the primary human drive is meaning — not pleasure or power. We cannot always choose our circumstances, but we can always choose our attitude and response. Suffering without meaning is unbearable; suffering with meaning is endurable — even ennobling.",
+    quote:'"Everything can be taken from a man but one thing: the freedom to choose one\'s attitude in any circumstance."',
+    l1:"Identify your why — a reason to live — and almost any how becomes manageable.",
+    l2:"Treat yourself as though living a second time, and as if the first time you had done exactly as you\'re about to do.",
+    l3:"Find meaning through work, through love, or through how you meet unavoidable suffering."
+  },
+  { title:"Mindset", author:"Carol S. Dweck", emoji:"🧠",
+    tag1:"Psychology", tag2:"Learning", tag3:"Growth",
+    essence:"Intelligence and talent are not fixed — they are starting points. People with a growth mindset believe abilities develop through dedication and hard work. Those with a fixed mindset avoid challenge to protect their self-image. The growth mindset turns failures into feedback and treats effort as the path — not a sign of inadequacy.",
+    quote:'"The passion for stretching yourself, even when it\'s not going well, is the hallmark of the growth mindset."',
+    l1:"Praise effort and strategy, never innate talent — it rewires how people respond to difficulty.",
+    l2:"When you fail, ask: what did I learn? What will I do differently?",
+    l3:"The word \'yet\' is the most powerful word in learning: \'I can\'t do this... yet.\'"
+  },
+  { title:"Grit", author:"Angela Duckworth", emoji:"💪",
+    tag1:"Perseverance", tag2:"Success", tag3:"Psychology",
+    essence:"Talent × effort = skill; skill × effort = achievement. Effort counts twice. Grit — the combination of passion for long-term goals and sustained perseverance through setbacks — predicts success better than IQ or talent alone. Grit is not innate; it is cultivated through interest, deliberate practice, purpose, and a growth-based optimism about failure.",
+    quote:'"Enthusiasm is common. Endurance is rare."',
+    l1:"Follow hard things through to completion — finishing what you start trains the grit muscle.",
+    l2:"Pursue a top-level goal with flexibility in the lower-level strategies to reach it.",
+    l3:"Optimistic self-talk during failure is not denial — it\'s the most evidence-based learning strategy available."
+  },
+  { title:"Deep Work", author:"Cal Newport", emoji:"🎯",
+    tag1:"Focus", tag2:"Productivity", tag3:"Career",
+    essence:"The ability to focus without distraction on cognitively demanding tasks is becoming the most valuable and simultaneously rarest skill in the modern economy. Deep work produces output that is hard to replicate, drives rapid skill acquisition, and generates a sense of true satisfaction that shallow work — email, meetings, scrolling — can never provide.",
+    quote:'"Clarity about what matters provides clarity about what does not."',
+    l1:"Schedule deep work as a non-negotiable appointment — protect it from everything else.",
+    l2:"Embrace productive boredom — resist switching to stimulation at the first hint of difficulty.",
+    l3:"Drain the shallows ruthlessly — identify and systematically reduce your low-value digital work."
+  },
+  { title:"The Subtle Art of Not Giving a F*ck", author:"Mark Manson", emoji:"🎲",
+    tag1:"Philosophy", tag2:"Happiness", tag3:"Self-help",
+    essence:"Life is finite — choose your struggles wisely. Happiness comes from solving meaningful problems, not avoiding problems. We are all choosing what to care about, all the time. The challenge is to choose consciously. Accept that you are not special by default; you earn significance through values and action. Embrace rejection, failure, and uncertainty as the necessary price of a meaningful life.",
+    quote:'"The desire for more positive experience is itself a negative experience."',
+    l1:"Define your values explicitly — then ask whether today\'s problems serve those values.",
+    l2:"Certainty is the enemy of growth. Embrace \'I don\'t know\' as the beginning of every insight.",
+    l3:"Death is the ultimate clarifier. Ask: does this matter from a deathbed perspective?"
+  },
+  { title:"Ikigai", author:"Héctor García & Francesc Miralles", emoji:"🌸",
+    tag1:"Purpose", tag2:"Longevity", tag3:"Wellbeing",
+    essence:"Ikigai is the intersection of what you love, what you are good at, what the world needs, and what you can be paid for. Okinawans — the world\'s longest-lived people — never retire; they simply keep living their ikigai. Purpose, a circle of close friends (moai), gentle movement, and eating to 80% fullness are the pillars of the world\'s longest lives.",
+    quote:'"Our ikigai is different for all of us, but we are all searching for meaning."',
+    l1:"Your ikigai is lived daily, not found once — act on it in small ways starting today.",
+    l2:"Invest in your moai — your 5 closest friendships are worth more than any supplement.",
+    l3:"Flow and ikigai overlap. Lose yourself in purposeful, challenging activity every single day."
+  },
+  { title:"The Alchemist", author:"Paulo Coelho", emoji:"✨",
+    tag1:"Philosophy", tag2:"Purpose", tag3:"Fiction",
+    essence:"Every person has a Personal Legend — a destiny written in their soul before birth. The universe conspires to help those who sincerely pursue their dreams. The journey itself transforms the seeker more than the destination ever could. Omens guide us; fear and comfort are the only real obstacles between where we stand and who we were born to become.",
+    quote:'"When you want something, all the universe conspires in helping you to achieve it."',
+    l1:"Listen to the language of the world — synchronicities are real signals, not coincidences.",
+    l2:"The treasure is never where you start, yet the journey is where the treasure is formed inside you.",
+    l3:"The darkest moment before the dawn is the universe testing whether you truly mean it."
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let state = {
+  currentBook: 0,
+  streak: 7,
+  xp: 420,
+  todayRead: false,
+  journalEntries: [
+    { date:"Sep 9",  book:"Man's Search for Meaning", action:"I wrote down what gives my work meaning, not just what I earn from it." },
+    { date:"Sep 10", book:"The Power of Now",         action:"Put my phone in another room for 2 hours during deep work. First time in months." },
+    { date:"Sep 11", book:"Atomic Habits",            action:"Moved my book to my pillow so I read before checking my phone each morning." },
+  ]
+};
+
+// ── WEEK GRID ─────────────────────────────────────────────────────────────────
+function buildWeekGrid() {
+  const grid = document.getElementById('week-grid');
+  const days = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+  const status = ['read','read','read','read','read','read','today'];
+  const icons  = ['✓','✓','✓','✓','✓','✓','📖'];
+  grid.innerHTML = days.map((d,i) => `
+    <div class="day-cell ${status[i]}">
+      <span class="day-name">${d}</span>
+      <span class="day-icon">${icons[i]}</span>
+    </div>`).join('');
+}
+
+// ── RENDER BOOK ───────────────────────────────────────────────────────────────
+function renderBook(idx) {
+  const b = books[idx];
+  document.getElementById('book-emoji').textContent = b.emoji;
+  document.getElementById('book-title').textContent = b.title;
+  document.getElementById('book-author').textContent = b.author;
+  document.getElementById('tag1').textContent = b.tag1;
+  document.getElementById('tag2').textContent = b.tag2;
+  document.getElementById('tag3').textContent = b.tag3;
+  document.getElementById('book-essence').textContent = b.essence;
+  document.getElementById('book-quote').textContent = b.quote;
+  document.getElementById('lesson1').textContent = b.l1;
+  document.getElementById('lesson2').textContent = b.l2;
+  document.getElementById('lesson3').textContent = b.l3;
+  document.getElementById('book-pos').textContent = `${idx+1} / ${books.length}`;
+  document.getElementById('day-counter').textContent = idx + 1;
+}
+
+function changeBook(dir) {
+  state.currentBook = (state.currentBook + dir + books.length) % books.length;
+  renderBook(state.currentBook);
+}
+
+// ── MARK READ ─────────────────────────────────────────────────────────────────
+function markRead() {
+  showToast('✓ Marked as read! +60 XP earned 🔥');
+}
+
+function markTodayRead() {
+  if (state.todayRead) return;
+  state.todayRead = true;
+  state.streak += 1;
+  state.xp += 60;
+  document.getElementById('streak-count').textContent = state.streak;
+  document.getElementById('xp-count').textContent = state.xp + ' XP';
+  const btn = document.getElementById('mark-today-btn');
+  btn.disabled = true;
+  btn.textContent = '✓ Read today! Streak extended';
+  showToast('🔥 Streak extended to ' + state.streak + ' days! +60 XP');
+}
+
+// ── SAVE / SHARE ──────────────────────────────────────────────────────────────
+function saveBook() {
+  showToast('♡ Saved to your reading vault');
+}
+function shareBook() {
+  const b = books[state.currentBook];
+  if (navigator.share) {
+    navigator.share({ title: 'ReadLoop: ' + b.title, text: b.quote, url: window.location.href });
+  } else {
+    navigator.clipboard.writeText(b.quote + '\n\n— ' + b.author + '\n\nRead the full essence at readloop.co.uk');
+    showToast('↗ Quote copied — paste to share!');
+  }
+}
+
+// ── JOURNAL ───────────────────────────────────────────────────────────────────
+function renderJournal() {
+  const container = document.getElementById('journal-entries');
+  container.innerHTML = state.journalEntries.map(e => `
+    <div class="journal-entry">
+      <div class="entry-date sans">${e.date}</div>
+      <div>
+        <div class="entry-book">${e.book}</div>
+        <div class="entry-action">${e.action}</div>
+      </div>
+    </div>`).join('');
+  document.getElementById('journal-count').textContent = state.journalEntries.length + ' entries';
+}
+
+function addJournalEntry() {
+  const input = document.getElementById('journal-input');
+  const val = input.value.trim();
+  if (!val) return;
+  const b = books[state.currentBook];
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('en-GB', { day:'numeric', month:'short' });
+  state.journalEntries.push({ date: dateStr, book: b.title, action: val });
+  input.value = '';
+  renderJournal();
+  state.xp += 20;
+  document.getElementById('xp-count').textContent = state.xp + ' XP';
+  showToast('📓 Entry logged! +20 XP — keep building.');
+}
+
+// ── EMAIL SIGNUP ──────────────────────────────────────────────────────────────
+function handleSignup(e) {
+  e.preventDefault();
+  const email = document.getElementById('signup-email').value;
+  document.querySelector('.signup-form').style.display = 'none';
+  document.getElementById('signup-success').style.display = 'block';
+  showToast('🎉 Welcome to ReadLoop, ' + email.split('@')[0] + '!');
+}
+
+function scrollToSignup() {
+  document.getElementById('signup').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3200);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildWeekGrid();
+renderBook(0);
+renderJournal();
+</script>
+</body>
+</html>

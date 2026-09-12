@@ -1,0 +1,22 @@
+.section { background: var(--teal); padding: 5rem 1.5rem; text-align: center; }
+.inner { max-width: 560px; margin: 0 auto; }
+.text h2 { font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 2.4rem); color: var(--white); line-height: 1.2; margin-bottom: 0.8rem; }
+.text p { color: rgba(255,255,255,0.82); font-size: 1.05rem; line-height: 1.6; margin-bottom: 2rem; }
+.form { display: flex; gap: 0.6rem; margin-bottom: 1rem; flex-wrap: wrap; justify-content: center; }
+.input { flex: 1; min-width: 220px; padding: 0.8rem 1.1rem; border: 2px solid rgba(255,255,255,0.25); border-radius: var(--radius); background: rgba(255,255,255,0.12); color: var(--white); font-size: 0.95rem; transition: border-color 0.18s; }
+.input::placeholder { color: rgba(255,255,255,0.5); }
+.input:focus { border-color: var(--gold); outline: none; }
+.button { background: var(--navy); color: var(--gold); font-size: 0.95rem; font-weight: 700; padding: 0.8rem 1.6rem; border: none; border-radius: var(--radius); cursor: pointer; transition: background 0.18s; white-space: nowrap; }
+.button:hover:not(:disabled) { background: #162540; }
+.button:disabled { opacity: 0.7; cursor: default; }
+.trust { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; font-size: 0.78rem; color: rgba(255,255,255,0.65); margin-bottom: 2rem; }
+.success { padding: 1.5rem; background: rgba(255,255,255,0.15); border-radius: var(--radius-lg); margin-bottom: 1.5rem; }
+.successIcon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.success h3 { color: var(--white); font-size: 1.3rem; margin-bottom: 0.4rem; }
+.success p { color: rgba(255,255,255,0.8); font-size: 0.95rem; }
+.error { color: #fca5a5; font-size: 0.85rem; margin-top: 0.5rem; }
+.socialProof { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.5rem; }
+.avatars { display: flex; justify-content: center; margin-bottom: 0.6rem; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-left: -8px; border: 2px solid var(--teal); }
+.avatar:first-child { margin-left: 0; }
+.socialProof p { font-size: 0.85rem; color: rgba(255,255,255,0.7); font-style: italic; }

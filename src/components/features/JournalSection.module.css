@@ -1,0 +1,22 @@
+.card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--mist); overflow: hidden; box-shadow: var(--shadow); }
+.header { background: linear-gradient(135deg, var(--navy), #162540); padding: 1.3rem 1.8rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem; }
+.header h3 { font-family: var(--font-serif); color: var(--white); font-size: 1.1rem; }
+.header p { font-size: 0.82rem; color: #7a9ab8; margin-top: 0.2rem; }
+.count { font-size: 0.8rem; color: var(--teal2); font-weight: 600; }
+.entries { padding: 0 1.8rem; }
+.entry { display: flex; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--smoke); align-items: flex-start; }
+.entry:last-child { border-bottom: none; }
+.entryDate { font-size: 0.72rem; font-weight: 600; color: var(--silver); min-width: 48px; padding-top: 2px; }
+.entryBook { font-size: 0.8rem; color: var(--teal); font-style: italic; margin-bottom: 0.2rem; }
+.entryAction { font-size: 0.92rem; color: var(--ink); line-height: 1.5; }
+.add { padding: 1.2rem 1.8rem; background: var(--smoke); border-top: 1px solid var(--mist); }
+.add > p { font-size: 0.82rem; color: var(--silver); margin-bottom: 0.6rem; }
+.inputRow { display: flex; gap: 0.6rem; }
+.input { flex: 1; padding: 0.6rem 0.9rem; border: 1.5px solid var(--mist); border-radius: var(--radius-sm); font-size: 0.9rem; background: var(--white); transition: border-color 0.18s; color: var(--ink); }
+.input:focus { border-color: var(--teal); outline: none; }
+.input::placeholder { color: var(--silver); }
+.submit { background: var(--teal); color: var(--white); font-size: 0.85rem; font-weight: 700; padding: 0.6rem 1.1rem; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: background 0.18s; white-space: nowrap; }
+.submit:hover:not(:disabled) { background: var(--teal2); }
+.submit:disabled { opacity: 0.5; cursor: default; }
+.confirmation { font-size: 0.82rem; color: var(--teal); margin-top: 0.6rem; }
+@media (max-width: 500px) { .inputRow { flex-direction: column; } .header, .entries, .add { padding-left: 1.2rem; padding-right: 1.2rem; } }
